@@ -59,13 +59,11 @@
                     ]
                 },
                 {
-                    "type": "Button",
-                    "text": "下一步",
+                    "type": "Submit",
                     "subtype": "primary",
-                    "action": {
-                        "type": "event",
-                        "name": "next"
-                    },
+                    "text": "保存",
+                    "labelWidth": 0,
+                    "width": 100,
                     "inline": true
                 }
             ],
@@ -98,23 +96,11 @@
                     "min": 0
                 },
                 {
-                    "type": "Button",
-                    "text": "上一步",
+                    "type": "Submit",
                     "subtype": "primary",
-                    "action": {
-                        "type": "event",
-                        "name": "prev"
-                    },
-                    "inline": true
-                },
-                {
-                    "type": "Button",
-                    "text": "下一步",
-                    "subtype": "primary",
-                    "action": {
-                        "type": "event",
-                        "name": "next"
-                    },
+                    "text": "保存",
+                    "labelWidth": 0,
+                    "width": 100,
                     "inline": true
                 }
             ],
@@ -138,19 +124,9 @@
                     "min": 0
                 },
                 {
-                    "type": "Button",
-                    "text": "上一步",
-                    "subtype": "primary",
-                    "action": {
-                        "type": "event",
-                        "name": "prev"
-                    },
-                    "inline": true
-                },
-                {
                     "type": "Submit",
                     "subtype": "primary",
-                    "text": "提交",
+                    "text": "保存",
                     "labelWidth": 0,
                     "width": 100,
                     "inline": true

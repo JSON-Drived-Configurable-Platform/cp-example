@@ -38,6 +38,14 @@ const getTakeoverModel = (params = {}) => {
   };
 };
 
+const getWizardFormData = (params = {}) => {
+  return {
+    url: "/api/form/wizardData",
+    method: "get",
+    params
+  };
+};
+
 const formSubmit = (params = {}) => {
   return {
     url: "/api/form/submit",
@@ -52,5 +60,6 @@ export default {
   formSubmit,
   getList,
   getTakeoverFormData,
-  getTakeoverModel
+  getTakeoverModel,
+  getWizardFormData
 };

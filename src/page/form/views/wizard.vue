@@ -1,9 +1,15 @@
 <template>
   <div class="wizard">
     <Steps :current="current" direction="vertical">
-      <Step title="第一步" content="这里是该步骤的描述信息"></Step>
-      <Step title="第二步" content="这里是该步骤的描述信息"></Step>
-      <Step title="第三步" content="这里是该步骤的描述信息"></Step>
+      <div class="wizard-name" @click="handelTab('0')">
+        <Step title="项目一" content="这里是该步骤的描述信息"></Step>
+      </div>
+      <div class="wizard-name" @click="handelTab('1')">
+        <Step title="项目二" content="这里是该步骤的描述信息"></Step>
+      </div>
+      <div class="wizard-name" @click="handelTab('2')">
+        <Step title="项目三" content="这里是该步骤的描述信息"></Step>
+      </div>
     </Steps>
     <template>
       <div class="page-form-takeover-form">
@@ -26,7 +32,7 @@
 
 <script>
 import services from "@/service";
-const { getTakeoverFormData, getTakeoverModel, getList } = services["form"];
+const { getWizardFormData, getTakeoverModel, getList } = services["form"];
 export default {
   data() {
     return {
@@ -70,8 +76,18 @@ export default {
     });
   },
   methods: {
+    handelTab(ev) {
+      console.log(ev);
+      this.current = Number(ev);
+      this.$router.push({
+        query: {
+          type: "add",
+          inx: Number(ev)
+        }
+      });
+    },
     handTakeoverData() {
-      getTakeoverFormData().then(res => {
+      getWizardFormData().then(res => {
         if (res.msg === "ok") {
           this.pageConfig = res.data.fields;
         }
@@ -139,15 +155,7 @@ export default {
         }
       }
       getList(obj).then(res => {
-        if (this.current !== 2 && res.msg === "ok") {
-          this.current += 1;
-          this.$router.push({
-            query: {
-              type: this.$route.query.type,
-              inx: this.current
-            }
-          });
-        }
+        console.log(res);
       });
     },
     deepClone(obj) {
@@ -160,6 +168,9 @@ export default {
 </script>
 <style lang="less">
 .wizard {
+  &-name {
+    cursor: pointer;
+  }
   .ivu-steps {
     width: 200px;
     float: left !important;

@@ -127,7 +127,7 @@ export default {
       } else {
         this.current = 0;
       }
-      if (Object.keys(this.model).length === 0) {
+      if (Object.keys(this.model).length === 0 && this.current !== 0) {
         this.handTakeoverModel();
       }
     },
