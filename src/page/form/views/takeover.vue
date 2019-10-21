@@ -115,7 +115,7 @@ export default {
     handelButtonEvent(e) {
       this[e.name]();
     },
-    next() {
+    prev() {
       if (this.current !== 0) {
         this.current -= 1;
         this.$router.push({
@@ -131,7 +131,7 @@ export default {
         this.handTakeoverModel();
       }
     },
-    last() {
+    next() {
       if (this.current !== 2) {
         this.handleSave();
         if (this.valid) {

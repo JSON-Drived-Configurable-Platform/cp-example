@@ -6,10 +6,7 @@
       <Step title="第三步" content="这里是该步骤的描述信息"></Step>
     </Steps>
     <template>
-      <div
-        class="page-form-takeover-form"
-        style="margin:30px auto; width:500px;"
-      >
+      <div class="page-form-takeover-form">
         <FormGenerator
           ref="FormGenerator"
           :fields="fieldsData"
@@ -91,7 +88,7 @@ export default {
     handelButtonEvent(e) {
       this[e.name]();
     },
-    next() {
+    prev() {
       if (this.current !== 0) {
         this.current -= 1;
         this.$router.push({
@@ -104,7 +101,7 @@ export default {
         this.current = 0;
       }
     },
-    last() {
+    next() {
       if (this.current !== 2) {
         this.$refs.FormGenerator.submit()
           .then(data => {
@@ -166,6 +163,10 @@ export default {
   .ivu-steps {
     width: 200px;
     float: left !important;
+  }
+  .page-form-takeover-form {
+    margin: 30px auto;
+    width: 500px;
   }
   .page-form-simple-form {
     float: left;
