@@ -26,14 +26,14 @@ export default {
         try {
           services
             .getUserInfo()
-            .then(({ errno, data }) => {
-              if (+errno === 200 || +errno === 0) {
+            .then(({ status, data }) => {
+              if (+status === 200 || +status === 0) {
                 commit("setDepartmentName", data.departmentName);
                 commit("setAvatar", data.headUrl);
                 commit("setUserName", data.userName);
                 resolve(data);
               } else {
-                reject(new Error(`response errno is: ${errno}`));
+                reject(new Error(`response status is: ${status}`));
               }
             })
             .catch(err => {

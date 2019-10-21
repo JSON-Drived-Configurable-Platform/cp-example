@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
     "errno": 0,
+=======
+    "status": 0,
+>>>>>>> 800f52177b8db73d40b194c0b004475353cdd18d
     "data": {
         "fields": [
             [
