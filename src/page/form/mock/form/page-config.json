@@ -1,5 +1,5 @@
 {
-    "errno": 0,
+    "status": 0,
     "data": {
         "columns": [
             {
@@ -37,7 +37,7 @@
             {
                 "type": "Input",
                 "label": "姓名",
-                "model": "name",
+                "model": "taskName",
                 "placeholder": "请输入姓名",
                 "rules": [
                     {

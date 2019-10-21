@@ -82,7 +82,7 @@ export default {
           })
           .then(
             res => {
-              if (+res.errno === 0) {
+              if (+res.status === 0) {
                 resolve(res);
               } else {
                 reject(res);

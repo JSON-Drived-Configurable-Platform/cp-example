@@ -17,6 +17,22 @@ const getEditableTablePageConfig = (params = {}) => {
 const getList = (params = {}) => {
   return {
     url: "/api/form/data",
+    method: "post",
+    params
+  };
+};
+// takeover
+const getTakeoverFormData = (params = {}) => {
+  return {
+    url: "/api/form/takeoverData",
+    method: "get",
+    params
+  };
+};
+
+const getTakeoverModel = (params = {}) => {
+  return {
+    url: "/api/form/takeovermodel",
     method: "get",
     params
   };
@@ -34,5 +50,7 @@ export default {
   getPageConfig,
   getEditableTablePageConfig,
   formSubmit,
-  getList
+  getList,
+  getTakeoverFormData,
+  getTakeoverModel
 };
