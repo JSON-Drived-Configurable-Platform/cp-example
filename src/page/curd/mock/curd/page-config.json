@@ -345,7 +345,12 @@
                     {
                         "type": "Submit",
                         "subtype": "primary",
-                        "text": "保存"
+                        "size": "large",
+                        "text": "提交",
+                        "action": {
+                            "api": "/api/curd/edit",
+                            "method": "get"
+                        }
                     }
                 ]
             },
@@ -415,7 +420,12 @@
                     {
                         "type": "Submit",
                         "subtype": "primary",
-                        "text": "保存"
+                        "size": "large",
+                        "text": "提交",
+                        "action": {
+                            "api": "/api/curd/add",
+                            "method": "get"
+                        }
                     }
                 ]
             }

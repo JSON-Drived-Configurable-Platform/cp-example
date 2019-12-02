@@ -175,22 +175,12 @@ export default {
       this.getTableData();
     },
 
-    handleCreateButtonClick() {
-      this.editModel = {
-        type: "add",
-        // 初始化用户状态，通常这个值是后端初始化
-        status: "1"
-      };
-      this.editDialogOpeon = true;
-    },
-
-    handleButtonEvent($event, row, index) {
+    handleButtonEvent($event, row = {}, index) {
       let { name } = $event;
       if (/dialog-/.test(name)) {
         let dialogName = name.replace(/dialog-/, "");
         this.$set(this.dilogsOpen, dialogName, true);
-
-        console.log(dialogName, this.dilogsOpen);
+        this.$set(this.dilogsModel, dialogName, row);
       } else {
         this[$event.name](row, index);
       }
