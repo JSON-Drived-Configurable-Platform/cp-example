@@ -30,21 +30,21 @@
                                     "tip": null,
                                     "label": "新增用户",
                                     "type": "card",
-                                    "api": "/api/data-report/card-1"
+                                    "api": "/api/data/real-time/card-1"
                                 },
                                 {
                                     "key": "43",
                                     "tip": null,
                                     "label": "活跃用户",
                                     "type": "card",
-                                    "api": "/api/data-report/card-2"
+                                    "api": "/api/data/real-time/card-2"
                                 },
                                 {
                                     "key": "44",
                                     "tip": null,
                                     "label": "人均时长",
                                     "type": "card",
-                                    "api": "/api/data-report/card-3"
+                                    "api": "/api/data/real-time/card-3"
                                 }
                             ]
                         }
@@ -103,21 +103,21 @@
                                     "tip": null,
                                     "label": "新增用户",
                                     "type": "line",
-                                    "api": "/api/data-report/line-1"
+                                    "api": "/api/data/real-time/line-1"
                                 },
                                 {
                                     "key": "46",
                                     "tip": null,
                                     "label": "活跃用户",
                                     "type": "line",
-                                    "api": "/api/data-report/line-2"
+                                    "api": "/api/data/real-time/line-2"
                                 },
                                 {
                                     "key": "47",
                                     "tip": null,
                                     "label": "人均时长",
                                     "type": "line",
-                                    "api": "/api/data-report/line-3"
+                                    "api": "/api/data/real-time/line-3"
                                 }
                             ]
                         }
@@ -151,7 +151,7 @@
                                     "tip": null,
                                     "label": "新增留存",
                                     "type": "retain",
-                                    "api": "/api/data-report/retain-1"
+                                    "api": "/api/data/real-time/retain-1"
                                 }
                             ]
                         },
@@ -179,7 +179,7 @@
                                     "tip": null,
                                     "label": "活跃留存",
                                     "type": "retain",
-                                    "api": "/api/data-report/retain-2"
+                                    "api": "/api/data/real-time/retain-2"
                                 }
                             ]
                         }

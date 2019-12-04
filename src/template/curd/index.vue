@@ -94,9 +94,8 @@
   </div>
 </template>
 <script>
-import services from "@/service";
 import axios from "../../libs/api.request";
-const { getPageConfig } = services["curd"];
+import { mapState } from "vuex";
 export default {
   watch: {
     searchFormModel: {
@@ -104,6 +103,9 @@ export default {
       handler() {
         this.getTableData();
       }
+    },
+    pagePath() {
+      this.getPageConfig();
     }
   },
   data() {
@@ -125,6 +127,9 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      pagePath: state => state.page.pagePath
+    }),
     pageTitle() {
       return this.pageConfig.title || "";
     },
@@ -150,16 +155,25 @@ export default {
     }
   },
   mounted() {
-    const { pageId } = this.$route.params;
-    getPageConfig({
-      pageId
-    }).then(res => {
-      this.pageConfig = res.data;
-      this.loading = false;
-      this.getTableData();
-    });
+    this.getPageConfig();
   },
   methods: {
+    getPageConfig() {
+      this.loading = true;
+      axios
+        .request({
+          url: `/api${this.pagePath}/page-config`,
+          method: "get",
+          params: {
+            pagePath: this.pagePath
+          }
+        })
+        .then(res => {
+          this.pageConfig = res.data;
+          this.loading = false;
+          this.getTableData();
+        });
+    },
     getTableData() {
       this.tableLoading = true;
       const { api, method } = this.tableRequestConfig;

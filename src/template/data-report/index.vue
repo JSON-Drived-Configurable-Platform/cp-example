@@ -31,9 +31,13 @@
 
 <script>
 import axios from "@/libs/api.request";
-import services from "@/service";
-const { getPageConfig } = services["data-report"];
+import { mapState } from "vuex";
 export default {
+  watch: {
+    pagePath() {
+      this.getPageConfig();
+    }
+  },
   data() {
     return {
       model: {},
@@ -45,6 +49,9 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      pagePath: state => state.page.pagePath
+    }),
     fields() {
       return this.pageConfig.form.fields || [];
     },
@@ -61,15 +68,21 @@ export default {
     }
   },
   mounted() {
-    const { pageId } = this.$route.params;
-    getPageConfig({
-      pageId
-    }).then(res => {
-      this.pageConfig = res.data;
-      this.loading = false;
-    });
+    this.getPageConfig();
   },
   methods: {
+    getPageConfig() {
+      this.loading = true;
+      axios
+        .request({
+          url: `/api${this.pagePath}/page-config`,
+          method: "get"
+        })
+        .then(res => {
+          this.pageConfig = res.data;
+          this.loading = false;
+        });
+    },
     interceptor(url, params) {
       return new Promise((resolve, reject) => {
         axios
