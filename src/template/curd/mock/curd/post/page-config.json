@@ -1,78 +1,31 @@
 {
     "errno": 0,
     "data": {
-        "title": "用户",
+        "title": "文章",
         "search": {
             "formFields": [
                 {
                     "type": "Select",
-                    "label": "性别",
+                    "label": "分类",
                     "multiple": true,
-                    "model": "gender",
+                    "model": "class",
                     "options": [
                         {
-                            "label": "男",
+                            "label": "技术",
                             "value": "1"
                         },
                         {
-                            "label": "女",
+                            "label": "生活",
                             "value": "2"
                         }
                     ]
                 },
                 {
-                    "type": "LogicSelect",
-                    "label": "年龄",
-                    "model": "logicSelect",
-                    "enables": [
-                        "=",
-                        ">",
-                        ">=",
-                        "<",
-                        "<=",
-                        "betweenIn",
-                        "betweenWith",
-                        "!=",
-                        "multiple"
-                    ],
-                    "options": [
-                        {
-                            "label": "10",
-                            "value": "10"
-                        },
-                        {
-                            "label": "20",
-                            "value": "20"
-                        },
-                        {
-                            "label": "30",
-                            "value": "30"
-                        },
-                        {
-                            "label": "40",
-                            "value": "40"
-                        },
-                        {
-                            "label": "50",
-                            "value": "50"
-                        },
-                        {
-                            "label": "60",
-                            "value": "60"
-                        },
-                        {
-                            "label": "70",
-                            "value": "70"
-                        },
-                        {
-                            "label": "80",
-                            "value": "80"
-                        },
-                        {
-                            "label": "90",
-                            "value": "90"
-                        }
-                    ]
+                    "type": "DatePicker",
+                    "subtype": "daterange",
+                    "label": "发布时间",
+                    "model": "publish_time",
+                    "options": []
                 }
             ],
             "options": {
@@ -104,35 +57,25 @@
             },
             "columns": [
                 {
-                    "title": "姓名",
-                    "key": "name",
+                    "title": "标题",
+                    "key": "title",
                     "width": 150
                 },
                 {
-                    "title": "年龄",
-                    "key": "age",
-                    "width": 90
-                },
-                {
-                    "title": "性别",
-                    "key": "gender",
-                    "width": 90
-                },
-                {
-                    "title": "出生日期",
-                    "key": "birthday",
+                    "title": "发布时间",
+                    "key": "publish_time",
                     "width": 150
                 },
                 {
-                    "title": "地址",
-                    "slot": "address",
+                    "title": "备注",
+                    "slot": "comment",
                     "poptip": {
-                        "title": "编辑地址",
+                        "title": "编辑备注",
                         "formFields": [
                             {
                                 "type": "Input",
-                                "model": "address",
-                                "placeholder": "请输入地址",
+                                "model": "comment",
+                                "placeholder": "请输入备注",
                                 "rules": [
                                     {
                                         "type": "string",
@@ -150,8 +93,8 @@
                                     "api": "/api/curd/post/edit"
                                 },
                                 "apiParams": [
-                                    "name",
-                                    "address"
+                                    "title",
+                                    "comment"
                                 ],
                                 "inline": true
                             }
@@ -159,7 +102,7 @@
                     }
                 },
                 {
-                    "title": "用户状态",
+                    "title": "文章状态",
                     "width": 100,
                     "slot": "status",
                     "align": "center",
@@ -174,7 +117,7 @@
                                     "color": "primary"
                                 },
                                 {
-                                    "name": "黑用户",
+                                    "name": "已删除",
                                     "value": "2",
                                     "color": "error"
                                 }
@@ -201,19 +144,19 @@
                         },
                         {
                             "type": "Button",
-                            "text": "判黑",
+                            "text": "删除",
                             "subtype": "primary",
                             "size": "small",
                             "confirmPoptip": {
-                                "title": "确认判黑?",
+                                "title": "确认放到垃圾箱?",
                                 "placement": "left"
                             },
                             "action": {
                                 "type": "ajax",
-                                "api": "/api/curd/post/toBlack"
+                                "api": "/api/curd/post/delete"
                             },
                             "apiParams": [
-                                "name",
+                                "title",
                                 "status"
                             ],
                             "inline": true,
@@ -230,19 +173,19 @@
                         },
                         {
                             "type": "Button",
-                            "text": "洗白",
+                            "text": "恢复",
                             "subtype": "primary",
                             "size": "small",
                             "confirmPoptip": {
-                                "title": "确定洗白?",
+                                "title": "确定从垃圾箱恢复?",
                                 "placement": "left"
                             },
                             "action": {
                                 "type": "ajax",
-                                "api": "/api/curd/post/toWhite"
+                                "api": "/api/curd/post/back"
                             },
                             "apiParams": [
-                                "name",
+                                "title",
                                 "status"
                             ],
                             "inline": true,
@@ -259,11 +202,11 @@
                         },
                         {
                             "type": "Button",
-                            "text": "删除",
+                            "text": "清除",
                             "subtype": "error",
                             "size": "small",
                             "confirmPoptip": {
-                                "title": "确定删除?",
+                                "title": "清除后不可恢复，确定清除?",
                                 "placement": "left"
                             },
                             "action": {
@@ -271,8 +214,18 @@
                                 "api": "/api/curd/post/delete"
                             },
                             "apiParams": [
-                                "name"
+                                "title"
                             ],
+                            "showOn": {
+                                "status": [
+                                    {
+                                        "type": "enum",
+                                        "enum": [
+                                            "2"
+                                        ]
+                                    }
+                                ]
+                            },
                             "inline": true
                         }
                     ]
@@ -292,61 +245,30 @@
                 "formFields": [
                     {
                         "type": "Input",
-                        "label": "姓名",
-                        "model": "name",
-                        "placeholder": "请输入姓名",
+                        "label": "标题",
+                        "model": "title",
+                        "placeholder": "请输入标题",
                         "rules": [
                             {
                                 "type": "string",
                                 "required": true,
-                                "pattern": "^[\\u4e00-\\u9fa5]+$",
-                                "message": "请输入中文姓名"
-                            }
-                        ]
-                    },
-                    {
-                        "type": "InputNumber",
-                        "label": "年龄",
-                        "model": "age",
-                        "placeholder": "请输入年龄",
-                        "required": true,
-                        "max": 150,
-                        "min": 0
-                    },
-                    {
-                        "type": "Select",
-                        "label": "性别",
-                        "model": "gender",
-                        "placeholder": "请输入性别",
-                        "required": true,
-                        "options": [
-                            {
-                                "label": "男",
-                                "value": "男"
-                            },
-                            {
-                                "label": "女",
-                                "value": "女"
-                            },
-                            {
-                                "label": "保密",
-                                "value": "保密"
+                                "message": "请输入标题"
                             }
                         ]
                     },
                     {
                         "type": "DatePicker",
-                        "label": "日期",
+                        "label": "发布日期",
                         "subtype": "date",
-                        "model": "birthday",
-                        "placeholder": "请输入出生日期",
+                        "model": "publish_time",
+                        "placeholder": "请输入发布日期",
                         "required": true
                     },
                     {
                         "type": "Input",
-                        "label": "地址",
-                        "model": "address",
-                        "placeholder": "请输入地址",
+                        "label": "备注",
+                        "model": "comment",
+                        "placeholder": "请输入备注",
                         "required": true
                     },
                     {
@@ -367,61 +289,30 @@
                 "formFields": [
                     {
                         "type": "Input",
-                        "label": "姓名",
-                        "model": "name",
-                        "placeholder": "请输入姓名",
+                        "label": "标题",
+                        "model": "title",
+                        "placeholder": "请输入标题",
                         "rules": [
                             {
                                 "type": "string",
                                 "required": true,
-                                "pattern": "^[\\u4e00-\\u9fa5]+$",
-                                "message": "请输入中文姓名"
-                            }
-                        ]
-                    },
-                    {
-                        "type": "InputNumber",
-                        "label": "年龄",
-                        "model": "age",
-                        "placeholder": "请输入年龄",
-                        "required": true,
-                        "max": 150,
-                        "min": 0
-                    },
-                    {
-                        "type": "Select",
-                        "label": "性别",
-                        "model": "gender",
-                        "placeholder": "请输入性别",
-                        "required": true,
-                        "options": [
-                            {
-                                "label": "男",
-                                "value": "男"
-                            },
-                            {
-                                "label": "女",
-                                "value": "女"
-                            },
-                            {
-                                "label": "保密",
-                                "value": "保密"
+                                "message": "请输入标题"
                             }
                         ]
                     },
                     {
                         "type": "DatePicker",
-                        "label": "日期",
+                        "label": "发布日期",
                         "subtype": "date",
-                        "model": "birthday",
-                        "placeholder": "请输入出生日期",
+                        "model": "publish_time",
+                        "placeholder": "请输入发布日期",
                         "required": true
                     },
                     {
                         "type": "Input",
-                        "label": "地址",
-                        "model": "address",
-                        "placeholder": "请输入地址",
+                        "label": "备注",
+                        "model": "comment",
+                        "placeholder": "请输入备注",
                         "required": true
                     },
                     {

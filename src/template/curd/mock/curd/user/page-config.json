@@ -96,7 +96,7 @@
         ],
         "table": {
             "request": {
-                "api": "/api/curd/post/data",
+                "api": "/api/curd/user/data",
                 "method": "get",
                 "apiParams": [
                     "all"
@@ -147,7 +147,7 @@
                                 "size": "small",
                                 "action": {
                                     "type": "ajax",
-                                    "api": "/api/curd/post/edit"
+                                    "api": "/api/curd/user/edit"
                                 },
                                 "apiParams": [
                                     "name",
@@ -210,7 +210,7 @@
                             },
                             "action": {
                                 "type": "ajax",
-                                "api": "/api/curd/post/toBlack"
+                                "api": "/api/curd/user/toBlack"
                             },
                             "apiParams": [
                                 "name",
@@ -239,7 +239,7 @@
                             },
                             "action": {
                                 "type": "ajax",
-                                "api": "/api/curd/post/toWhite"
+                                "api": "/api/curd/user/toWhite"
                             },
                             "apiParams": [
                                 "name",
@@ -268,7 +268,7 @@
                             },
                             "action": {
                                 "type": "ajax",
-                                "api": "/api/curd/post/delete"
+                                "api": "/api/curd/user/delete"
                             },
                             "apiParams": [
                                 "name"
@@ -355,7 +355,7 @@
                         "size": "large",
                         "text": "提交",
                         "action": {
-                            "api": "/api/curd/post/edit",
+                            "api": "/api/curd/user/edit",
                             "method": "get"
                         }
                     }
@@ -430,7 +430,7 @@
                         "size": "large",
                         "text": "提交",
                         "action": {
-                            "api": "/api/curd/post/add",
+                            "api": "/api/curd/user/add",
                             "method": "get"
                         }
                     }
