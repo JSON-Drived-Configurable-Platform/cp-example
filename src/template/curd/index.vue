@@ -226,7 +226,19 @@ export default {
         this.$set(this.dilogsOpen, dialog, false);
         this.$set(this.dilogsModel, dialog, {});
       });
+    },
+    pageReset() {
+      this.searchFormModel = {};
+      this.tableData = [];
+      this.dilogsOpen = {};
+      this.dilogsModel = {};
+      this.pageNumber = 0;
+      this.total = 0;
     }
+  },
+  beforeRouteLeave(to, from, next) {
+    this.pageReset();
+    next();
   }
 };
 </script>

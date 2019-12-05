@@ -106,7 +106,18 @@ export default {
             }
           );
       });
+    },
+    pageReset() {
+      this.model = {};
+      this.pageConfig = {
+        form: {},
+        charts: []
+      };
     }
+  },
+  beforeRouteLeave(to, from, next) {
+    this.pageReset();
+    next();
   }
 };
 </script>
