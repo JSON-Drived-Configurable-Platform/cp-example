@@ -1,10 +1,5 @@
 <template>
   <div class="audit-detail-example-demo">
-    <!-- <div class="go-back" v-if="pageConfig.pageGoBackUrl">
-      <Button type="primary" @click="$router.push(pageConfig.pageGoBackUrl)">返回</Button>
-    </div> -->
-    <!-- <DetailSteps class="ivu-steps">
-        </DetailSteps> -->
     <div
       v-for="config in pageConfig.tableList"
       :key="config.title"
@@ -30,16 +25,8 @@
           :ref="column.slot"
           slot-scope="{ row, index }"
         >
-          <div v-if="column.htmlKey" :key="column.slot">
-            <div v-if="row.key===config.htmlKey">
-              <a class="download-wrapper" :href="item.url" v-for="(item, key) in row.value" :key="key">
-                {{item.name}}</a>
-            </div>
-            <div v-else>{{row.value}}</div>
-          </div>
           <Form
-            v-if="!row.hideForm && column.formFields
-              ? (config.hideFormKey ? config.hideFormKey === row.key : true) : false"
+            v-if="column.formFields"
             :key="column.slot"
             :ref="column.slot + row.key"
             :model="row"
@@ -54,6 +41,7 @@
               @on-list-item-click="handleListItemClick"
             />
           </Form>
+          <div v-else :key="column.key">{{row.value}}</div>
         </template>
       </Table>
     </div>
@@ -81,8 +69,9 @@
 </template>
 <script>
 /* eslint-disable no-console */
+import {keyToLabelMap} from './keyToLabelMap';
 import {mapState} from 'vuex';
-import axios from '../../libs/api.request';
+import axios from '@/libs/api.request';
 
 export default {
   data() {
@@ -106,36 +95,50 @@ export default {
         isCheck: true
       },
       downLoadUrl: '',
-      pageConfig: {}
+      pageConfig: {
+        request: {},
+        dialogs: {},
+        needDealUploadData: false,
+        submitApi: {}
+      }
     };
   },
   computed: {
     pageRequestInfo() {
       return this.pageConfig && this.pageConfig.request;
     },
+
     ...mapState({
-      keyToLabel: state => state.page.keyToLabel,
-      pagePath: state => state.page.pagePath,
-      keyList: state => state.page.keyList
+      pagePath: state => state.page.pagePath
     }),
+
+    keyToLabel() {
+      return keyToLabelMap[this.pagePath];
+    },
+
     submitApi() {
       return this.pageConfig.submitApi && this.pageConfig.submitApi;
     },
+
     dialogsConfig() {
       return this.pageConfig.dialogs || {};
     },
+
     needDealUploadData() {
       return this.pageConfig.needDealUploadData || false;
     }
   },
+
   watch: {
     pagePath() {
       this.getPageConfig();
     }
   },
+
   mounted() {
     this.getPageConfig();
   },
+
   methods: {
     getPageConfig() {
       axios
@@ -164,7 +167,7 @@ export default {
          * When the field value changed, sync the value to this.formModel
          * Notice there may be more than form in the per line in the table.
          *
-         * @param ($event, row, refKey)
+         * @param {Object} $event event data
          * @param {String} $event.model the changed field's model, eg: auditStatus
          * @param {String} $event.value the change field's value, eg: 1 (one value of auditStatus's options)
          * @param {String} row.key the changed field' identifier, eg: name
@@ -183,7 +186,7 @@ export default {
       let validCount = 0;
       const refKeys = Object.keys(this.$refs);
       refKeys.forEach(form => {
-        this.$refs[form][0].validate().then(valid => {
+        this.$refs[form][0] && this.$refs[form][0].validate().then(valid => {
           if (valid) {
             validCount++;
           }
@@ -253,9 +256,11 @@ export default {
         return sectionConfig;
       });
     },
+
     cancel() {
       this.dialogShow = false;
     },
+
     confirm(requestApi) {
       const {api, method} = requestApi;
       const data = {...this.formModel, ...{applyNo: this.$route.query.applyNo}};
@@ -280,6 +285,7 @@ export default {
         });
       this.dialogShow = false;
     },
+
     resetPageData() {
       this.pageConfig.tableList = this.pageConfig.tableList.map(item => {
         if (item.needClearData) {
@@ -318,20 +324,16 @@ export default {
         .ivu-table, .ivu-table-wrapper, .ivu-table-cell {
             overflow: visible;
         }
-        .download-wrapper {
-            padding: 0 20px;
-        }
-        &-form {
-           .ivu-form-item {
-                margin-top: 0px;
-                margin-bottom: 0px
-            }
-        }
-    }
-    .go-back {
-        width: 100%;
-        padding-bottom: 20px;
-        text-align: right
+        // .download-wrapper {
+        //     padding: 0 20px;
+        // }
+
+        // &-form {
+        //    .ivu-form-item {
+        //         margin-top: 0px;
+        //         margin-bottom: 0px
+        //     }
+        // }
     }
 
 </style>
